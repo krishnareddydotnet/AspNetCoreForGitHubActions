@@ -1,1 +1,37 @@
+name: sample application build
 
+on:
+ push:
+  branches: ["main","test"]
+ workflow_dispatch:
+ 
+env:
+ instance: dev
+ configuration: release
+
+jobs:
+ build:
+  runs-on: ubuntu-latest  
+  permissions: read-all
+
+  steps:   
+    - uses: actions/checkout@v4
+  
+    - name: Set up .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+          dotnet-version: '9.0'
+
+    - name: build the project
+      run: dotnet build --configuration Release
+
+    - name: dotnet publish
+      run: dotnet publish --configuration Release -o /App
+
+
+        
+
+
+  
+
+    
